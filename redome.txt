@@ -1,7 +1,0 @@
-GUI_calc mainwidow 	1つ目のwindow
-GUI_calc_swindws 	tool
-HEXA_calc_twindow	２つ目のwindow
-GUI_calc_HEXA		モジュールの部分
-Ren_calc_twindow	レン職業個別の部分(HEXA部分のプロトタイプ的なもの)
-
-メインウィンドウを実行するとアプリを実行できる。
