@@ -7,7 +7,8 @@ import os
 import sys
 import math, time
 import GUI_calc_swindow
-import Ren_calc_twindow, HEXA_calc_twindow
+from HEXA import Ren_calc_twindow
+from HEXA import HEXA_calc_twindow
 
 QApplication.setAttribute(Qt.ApplicationAttribute.AA_UseOpenGLES)
 # 1. 既存の QApplication インスタンスがあるかチェック
@@ -943,6 +944,13 @@ class MainWindow(QWidget):              # ウィンドウ系クラスを継承�
         setattr(self, set_value, new_value)
         #print(new_value)
 
+
+
+def is_input(input_num):
+    try:
+        return float(input_num)
+    except ValueError:
+        return 0
     
 def is_input(input_num):
     try:

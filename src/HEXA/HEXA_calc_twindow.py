@@ -3,21 +3,22 @@ from PySide6.QtWidgets import (QApplication, QSpinBox, QDoubleSpinBox, QLineEdit
 from PySide6.QtGui import QDoubleValidator
 #from GUI_calc import is_input
 import math, time
-from GUI_calc_HEXA import HEXA_calc, origin_calc, ascent_calc
+from HEXA.HEXA_mod.GUI_calc_HEXA import HEXA_calc, origin_calc, ascent_calc
 
 #Dot Damage 0.5秒周期
 class SecondWindow(QWidget):
     def __init__(self, parent_window, parent=None):
-        super().__init__()
+        super().__init__(parent)
+        self.hexa_calc = HEXA_calc()
 
         #スキル平均の最終ダメージ増加量
         #アセント
         #ステータスをダメージに反映
         
-    # ウィンドウサイズを指定（px単位）
+        # ウィンドウサイズを指定（px単位）
         windowWidth = 1300  # ウィンドウの横幅
         windowHeight = 500  # ウィンドウの高さ
-    # ウィンドウサイズの変更
+        # ウィンドウサイズの変更
         self.resize(windowWidth, windowHeight)
         self.setFixedSize(1300, 500)
         self.main_window_ref = parent_window
@@ -3138,12 +3139,12 @@ class SecondWindow(QWidget):
         #呼び出し　 self.HEXA_skill["Hero"][mastery][skill]["name"]
 
 
-    # (レイアウト)
+        # (レイアウト)
         layout = QGridLayout(self)
         self.setLayout(layout)
 
 
-    # スキルを表示するメソッド
+        # スキルを表示するメソッド
         self.mastery1_combo = QComboBox()
         self.mastery1_combo.addItem("マスタリー1")
         self.mastery2_combo = QComboBox()
@@ -3177,7 +3178,7 @@ class SecondWindow(QWidget):
         self.label_LV.setText("Lv")
 
 
-    #スピンボックス_スキルレベル
+        #スピンボックス_スキルレベル
 
         self.label_mastery1_sp = QSpinBox(self)
         self.label_mastery1_sp.setValue(0)
@@ -3236,7 +3237,7 @@ class SecondWindow(QWidget):
         #self.label_ascent_fd_sp.setMaximum(30)
 
         self.label_mastery1_sp.setMinimumWidth(40)
-    #LineEdit
+        #LineEdit
         self.mastery1_li   = QLineEdit()
         self.mastery1_li.setMinimumWidth(300)
 
@@ -3287,7 +3288,7 @@ class SecondWindow(QWidget):
         #self.ascent_fd_li.setReadOnly(True)
 
 
-    #ボタン
+        #ボタン
         self.mastery1_dam_butt = QPushButton(self)
         self.mastery1_dam_butt.setText("マスタリー1 : ダメージ")
 
@@ -3322,14 +3323,14 @@ class SecondWindow(QWidget):
         #self.ascent_fd_dam_butt.setText("ASCENT : 最終ダメージ")
 
 
-    #コンボックス
+        #コンボックス
         self.combobox = QComboBox(self)
         self.combobox.setEditable(False)
         self.combobox.setFixedSize(200, 30)
         #self.combobox.addItem("job")
         self.combobox.addItem(self.main_window_ref.select_job)
 
-    #ボタン
+        #ボタン
         #self.calc_dam_butt = QPushButton(self)
         #self.calc_dam_butt.setText("計算: ダメージ")
 
@@ -3337,7 +3338,7 @@ class SecondWindow(QWidget):
         #self.stat_butt.setText("計算: 表記ステータス")
         #self.combatstat_butt = QPushButton(self)
         #self.combatstat_butt.setText("計算: 戦闘力          ")
-    #Grid　追加
+        #Grid　追加
         layout.addWidget(self.combobox, 0,0)
         layout.addWidget(self.label_space1,    1,0)
         layout.addWidget(self.mastery1_combo, 2,0)
@@ -3353,7 +3354,7 @@ class SecondWindow(QWidget):
         layout.addWidget(self.label_origin, 12,0)
         #layout.addWidget(self.label_ascent, 14,0)
 
-    #スピンボックス
+        #スピンボックス
         layout.addWidget(self.label_LV, 1,1)
         layout.addWidget(self.label_mastery1_sp, 2,1)
         layout.addWidget(self.label_mastery2_sp,  3,1)
@@ -3377,7 +3378,7 @@ class SecondWindow(QWidget):
         #layout.addWidget(self.label_ascent_fd_sp, 15,4)
 
 
-    #数値入力ボックス　の追加
+        #数値入力ボックス　の追加
         layout.addWidget(self.mastery1_li, 2,2)
         layout.addWidget(self.mastery2_li, 3,2)
         layout.addWidget(self.mastery3_li, 4,2)
@@ -3408,7 +3409,7 @@ class SecondWindow(QWidget):
 
 
 
-    #ダメージ計算ボタン
+        #ダメージ計算ボタン
         layout.addWidget(self.mastery1_dam_butt, 2,3)
         layout.addWidget(self.mastery2_dam_butt, 3,3)
         layout.addWidget(self.mastery3_dam_butt, 4,3)
@@ -3426,10 +3427,10 @@ class SecondWindow(QWidget):
 
 
             
-    #オプション
+        #オプション
 
 
-    #QT Style
+        #QT Style
         labelStyle = """QLabel {
             font-size: 16px;
         }"""
@@ -3446,17 +3447,17 @@ class SecondWindow(QWidget):
                 border: 1px solid "#3D6DEB"; /* フォーカス時の枠線 */
             }
         """
-    #STyleの適用
+        #STyleの適用
         #label.setStyleSheet(labelStyle)
         #self.wepon_coe_li.setStyleSheet(lineStyle)
 
         self.setLayout(layout)
 
-    #職業選択処理
+        #職業選択処理
         self.select_job = self.combobox.currentText()
         self.combobox.currentTextChanged.connect(self.combo_set)
 
-    #数値変更で変数の数値を変更する
+        #数値変更で変数の数値を変更する
 
         #self.wepon_coe = is_input(1.44)
         #self.wepon_coe_li.textChanged.connect(lambda new_text: self.is_input_str('wepon_coe', False, new_text))
@@ -3496,10 +3497,9 @@ class SecondWindow(QWidget):
         self.attack_damage = is_input(self.attack_damage_li.text().strip())
         self.skill_set()
 
-        self.hexa_calc = HEXA_calc()
         self.mastery_name = "name"
 
-    #計算処理
+        #計算処理
         self.mastery1_dam_butt.pressed.connect(self.mastery1_fd_calc)
         self.mastery2_dam_butt.pressed.connect(self.mastery2_fd_calc)
         self.mastery3_dam_butt.pressed.connect(self.mastery3_fd_calc)
@@ -3517,7 +3517,7 @@ class SecondWindow(QWidget):
         self.origin_fd_dam_butt.pressed.connect(self.origin_fd_calc)
 
 
-    #timer
+        #timer
         start_time = time.perf_counter()
         #self.format_damage()
         end_time = time.perf_counter()
@@ -3525,7 +3525,7 @@ class SecondWindow(QWidget):
         #print(f"処理にかかった時間: {elapsed_time:.8f} 秒")
 
 
-    #connect!
+        #connect!
         self.combobox.activated.connect(self.skill_set)
 
         #mastery
@@ -3569,7 +3569,6 @@ class SecondWindow(QWidget):
         
     def is_input_mastery(self, skill_level, n):
         self.mastery = skill_level
-        self.hexa_calc = HEXA_calc()
         self.hexa_calc.select_job = self.select_job
 
         dic = self.HEXA_skill_mastery
@@ -3588,7 +3587,6 @@ class SecondWindow(QWidget):
 
 
     def is_input_mastery1(self, skill_level):
-        self.hexa_calc = HEXA_calc()
         self.hexa_calc.select_job = self.select_job
         self.is_input_mastery(skill_level, "1")
 
@@ -3603,7 +3601,6 @@ class SecondWindow(QWidget):
         self.fainal_dam_skill   = self.hexa_calc.fainal_dam
 
     def is_input_mastery2(self, skill_level):
-        self.hexa_calc = HEXA_calc()
         self.hexa_calc.select_job = self.select_job
         self.is_input_mastery(skill_level, "2")
         
@@ -3624,7 +3621,6 @@ class SecondWindow(QWidget):
         self.fainal_dam_skill = self.hexa_calc.fainal_dam
 
     def is_input_mastery3(self, skill_level):
-        self.hexa_calc = HEXA_calc()
         self.hexa_calc.select_job = self.select_job
         self.is_input_mastery(skill_level, "3")
 
@@ -3640,7 +3636,6 @@ class SecondWindow(QWidget):
         self.fainal_dam_skill = self.hexa_calc.fainal_dam
 
     def is_input_mastery4(self, skill_level):
-        self.hexa_calc = HEXA_calc()
         self.hexa_calc.select_job = self.select_job
         self.is_input_mastery(skill_level, "4")
 
@@ -3812,8 +3807,6 @@ class SecondWindow(QWidget):
 
 
     def is_input_origin(self, skill_level):
-
-        self.hexa_calc = origin_calc()
         self.hexa_calc.select_job = self.select_job
         dic = self.HEXA_skill_origin
 
@@ -3853,7 +3846,6 @@ class SecondWindow(QWidget):
         attack_num = 0
         damage_ascent_add = 0
         attack_num_add = 0
-        self.hexa_calc = ascent_calc()
         self.hexa_calc.select_job = self.select_job
         dic = self.HEXA_skill_ascent
 

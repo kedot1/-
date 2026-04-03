@@ -1,4 +1,4 @@
-import HEXA_calc_twindow
+from HEXA import HEXA_calc_twindow
 import math
 
 class HEXA_calc:

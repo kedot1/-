@@ -29,3 +29,15 @@ tech
 -クラス、メソッドに分割しての再利用
 -各マスタリー、enhance(強化コア)を分離することによる、機能拡張性（スキル追記）
 
+
+pythonで動かすために必要なもの
+python
+pyside6
+vscode
+	基本的に最新バージョンで動くはずです。
+
+インストール
+python	公式のインストーラーからインストールできます。
+pyside6	pip install pyside6
+	pipはpythonをインストールすればcmdから使用できます。
+vscode	公式からインストール後microsoftのpythonプラグインをインストール。その後デバッグ機能からファイルを実行。
